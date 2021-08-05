@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Biblio_ModelStoreContainer" CdmEntityContainer="BiblioEntities">
+    <EntitySetMapping Name="AUTEUR">
+      <EntityTypeMapping TypeName="Biblio_Model.AUTEUR">
+        <MappingFragment StoreEntitySet="AUTEUR">
+          <ScalarProperty Name="ID_AUTEUR" ColumnName="ID_AUTEUR" />
+          <ScalarProperty Name="NOM_AUTEUR" ColumnName="NOM_AUTEUR" />
+          <ScalarProperty Name="DATE_SAISIE" ColumnName="DATE_SAISIE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COURANT">
+      <EntityTypeMapping TypeName="Biblio_Model.COURANT">
+        <MappingFragment StoreEntitySet="COURANT">
+          <ScalarProperty Name="ID_COURANT" ColumnName="ID_COURANT" />
+          <ScalarProperty Name="NOM_COURANT" ColumnName="NOM_COURANT" />
+          <ScalarProperty Name="DATE_SAISIE" ColumnName="DATE_SAISIE" />
+          <ScalarProperty Name="ID_GENRE" ColumnName="ID_GENRE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EDITEUR">
+      <EntityTypeMapping TypeName="Biblio_Model.EDITEUR">
+        <MappingFragment StoreEntitySet="EDITEUR">
+          <ScalarProperty Name="ID_EDITEUR" ColumnName="ID_EDITEUR" />
+          <ScalarProperty Name="NOM_EDITEUR" ColumnName="NOM_EDITEUR" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="DATE_SAISIE" ColumnName="DATE_SAISIE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GENRE">
+      <EntityTypeMapping TypeName="Biblio_Model.GENRE">
+        <MappingFragment StoreEntitySet="GENRE">
+          <ScalarProperty Name="ID_GENRE" ColumnName="ID_GENRE" />
+          <ScalarProperty Name="NOM_GENRE" ColumnName="NOM_GENRE" />
+          <ScalarProperty Name="DATE_SAISIE" ColumnName="DATE_SAISIE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIVRE">
+      <EntityTypeMapping TypeName="Biblio_Model.LIVRE">
+        <MappingFragment StoreEntitySet="LIVRE">
+          <ScalarProperty Name="ID_LIVRE" ColumnName="ID_LIVRE" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="TITRE" ColumnName="TITRE" />
+          <ScalarProperty Name="ANNEE_EDITION" ColumnName="ANNEE_EDITION" />
+          <ScalarProperty Name="FICHIER" ColumnName="FICHIER" />
+          <ScalarProperty Name="DATE_SAISIE" ColumnName="DATE_SAISIE" />
+          <ScalarProperty Name="ID_AUTEUR" ColumnName="ID_AUTEUR" />
+          <ScalarProperty Name="ID_GENRE" ColumnName="ID_GENRE" />
+          <ScalarProperty Name="ID_EDITEUR" ColumnName="ID_EDITEUR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

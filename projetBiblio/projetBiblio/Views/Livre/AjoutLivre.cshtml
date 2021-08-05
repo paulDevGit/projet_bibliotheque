@@ -1,0 +1,112 @@
+﻿@model projetBiblio.Models.LIVRE
+@{
+    ViewBag.Title = "AjoutLivre";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr />
+<div class="container">
+    <h2 class="font-weight-bold">Ajout d'un auteur</h2>
+</div>
+<hr />
+<div class="container">
+    <form id="formLivre" name="formLivre" action="" method="post" enctype="multipart/form-data">
+        @if (Model != null)
+        {
+            <input type="hidden" name="ID_LIVRE" id="ID_EDITEUR" value="@Model.ID_LIVRE" />
+        }
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                    <label>TITRE</label>
+                    <input type="text" id="TITRE" name="TITRE" class="form-control" value="@(Model!=null? Model.TITRE:"")"  required />
+                </div>
+
+                <div class="form-group">
+                    <label>EDITEUR</label>
+
+                    <select id="ID_EDITEUR" name="ID_EDITEUR" class="form-control" aria-label="Large">
+                        @foreach (var data in ViewBag.listeEditeur)
+                        {
+                            <option value="@data.ID_EDITEUR">@data.NOM_EDITEUR</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>GENRE LITTERAIRE</label>
+
+                    <select id="ID_GENRE" name="ID_GENRE" class="form-control" aria-label="Large">
+                        @foreach (var data in ViewBag.listeGenre)
+                        {
+                            <option value="@data.ID_GENRE"> @data.NOM_GENRE</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>AUTEUR</label>
+
+                    <select id="ID_AUTEUR" name="ID_AUTEUR" class="form-control" aria-label="Large">
+                        @foreach (var data in ViewBag.listeAuteur)
+                        {
+                            <option value="@data.ID_AUTEUR">@data.NOM_AUTEUR</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                    <label>ISBN</label>
+                    <input type="text" id="ISBN" name="ISBN" @(Model!=null? Model.ISBN : "") class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @if (Model == null)
+            {
+                <input type="submit" id="enregistrer" name="enregistrer" value="Enregistrer" class="btn btn-primary" />
+
+            }
+            else
+            {
+                <input type="submit" id="modifier" name="modifier" value="Enregistrer Modification" class="btn btn-success" />
+                <a href="~/Livre/AjoutLivre" class="btn btn-default">Annuler</a>
+            }
+        </div>
+    </form>
+    <hr />
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>TITRE</th>
+                <th>EDITEUR</th>
+                <th>GENRE LITTERAIRE</th>
+                <th>AUTEUR</th>
+                <th>ISBN</th>
+                <th>DATE DE SAISIE</th>
+                
+
+            </tr>
+            @foreach (var data in ViewBag.listeLivre)
+            {
+        <tr>
+            <td>@data.ID_LIVRE</td>
+            <td>@data.TITRE</td>
+            <td>@data.EDITEUR.NOM_EDITEUR</td>
+            <td>@data.GENRE.NOM_GENRE</td>
+            <td>@data.AUTEUR.NOM_AUTEUR</td>
+            <td>@data.ISBN</td>
+            <td>@data.DATE_SAISIE</td>
+            <td><a href="~/Livre/ModifierLivre/@data.ID_LIVRE" class="btn btn-success btn-block"><span class="glyphicon glyphicon-edit"></span> Modifier</a></td>
+            <td><a href="~/Livre/SupprimerLivre/@data.ID_LIVRE" class="btn btn-danger btn-block"><span class="glyphicon glyphicon-remove"></span> Supprimer</a></td>
+        </tr>
+            }
+
+        </table>
+
+    </div>
+</div>
+
+
+

@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Biblio_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AUTEUR">
+    <Key>
+      <PropertyRef Name="ID_AUTEUR" />
+    </Key>
+    <Property Name="ID_AUTEUR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOM_AUTEUR" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_SAISIE" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="LIVRE" Relationship="Self.FK_LIVRE_AUTEUR" FromRole="AUTEUR" ToRole="LIVRE" />
+  </EntityType>
+  <EntityType Name="COURANT">
+    <Key>
+      <PropertyRef Name="ID_COURANT" />
+    </Key>
+    <Property Name="ID_COURANT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOM_COURANT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_SAISIE" Type="DateTime" Precision="3" />
+    <Property Name="ID_GENRE" Type="Int32" />
+    <NavigationProperty Name="GENRE" Relationship="Self.FK_COURANT_GENRE" FromRole="COURANT" ToRole="GENRE" />
+  </EntityType>
+  <EntityType Name="EDITEUR">
+    <Key>
+      <PropertyRef Name="ID_EDITEUR" />
+    </Key>
+    <Property Name="ID_EDITEUR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOM_EDITEUR" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_SAISIE" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="LIVRE" Relationship="Self.FK_LIVRE_EDITEUR" FromRole="EDITEUR" ToRole="LIVRE" />
+  </EntityType>
+  <EntityType Name="GENRE">
+    <Key>
+      <PropertyRef Name="ID_GENRE" />
+    </Key>
+    <Property Name="ID_GENRE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOM_GENRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_SAISIE" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="COURANT" Relationship="Self.FK_COURANT_GENRE" FromRole="GENRE" ToRole="COURANT" />
+    <NavigationProperty Name="LIVRE" Relationship="Self.FK_LIVRE_GENRE" FromRole="GENRE" ToRole="LIVRE" />
+  </EntityType>
+  <EntityType Name="LIVRE">
+    <Key>
+      <PropertyRef Name="ID_LIVRE" />
+    </Key>
+    <Property Name="ID_LIVRE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TITRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ANNEE_EDITION" Type="DateTime" Precision="0" />
+    <Property Name="FICHIER" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="DATE_SAISIE" Type="DateTime" Precision="3" />
+    <Property Name="ID_AUTEUR" Type="Int32" />
+    <Property Name="ID_GENRE" Type="Int32" />
+    <Property Name="ID_EDITEUR" Type="Int32" />
+    <NavigationProperty Name="AUTEUR" Relationship="Self.FK_LIVRE_AUTEUR" FromRole="LIVRE" ToRole="AUTEUR" />
+    <NavigationProperty Name="EDITEUR" Relationship="Self.FK_LIVRE_EDITEUR" FromRole="LIVRE" ToRole="EDITEUR" />
+    <NavigationProperty Name="GENRE" Relationship="Self.FK_LIVRE_GENRE" FromRole="LIVRE" ToRole="GENRE" />
+  </EntityType>
+  <Association Name="FK_LIVRE_AUTEUR">
+    <End Role="AUTEUR" Type="Self.AUTEUR" Multiplicity="0..1" />
+    <End Role="LIVRE" Type="Self.LIVRE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AUTEUR">
+        <PropertyRef Name="ID_AUTEUR" />
+      </Principal>
+      <Dependent Role="LIVRE">
+        <PropertyRef Name="ID_AUTEUR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COURANT_GENRE">
+    <End Role="GENRE" Type="Self.GENRE" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="COURANT" Type="Self.COURANT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GENRE">
+        <PropertyRef Name="ID_GENRE" />
+      </Principal>
+      <Dependent Role="COURANT">
+        <PropertyRef Name="ID_GENRE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LIVRE_EDITEUR">
+    <End Role="EDITEUR" Type="Self.EDITEUR" Multiplicity="0..1" />
+    <End Role="LIVRE" Type="Self.LIVRE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EDITEUR">
+        <PropertyRef Name="ID_EDITEUR" />
+      </Principal>
+      <Dependent Role="LIVRE">
+        <PropertyRef Name="ID_EDITEUR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LIVRE_GENRE">
+    <End Role="GENRE" Type="Self.GENRE" Multiplicity="0..1" />
+    <End Role="LIVRE" Type="Self.LIVRE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GENRE">
+        <PropertyRef Name="ID_GENRE" />
+      </Principal>
+      <Dependent Role="LIVRE">
+        <PropertyRef Name="ID_GENRE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BiblioEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AUTEUR" EntityType="Self.AUTEUR" />
+    <EntitySet Name="COURANT" EntityType="Self.COURANT" />
+    <EntitySet Name="EDITEUR" EntityType="Self.EDITEUR" />
+    <EntitySet Name="GENRE" EntityType="Self.GENRE" />
+    <EntitySet Name="LIVRE" EntityType="Self.LIVRE" />
+    <AssociationSet Name="FK_LIVRE_AUTEUR" Association="Self.FK_LIVRE_AUTEUR">
+      <End Role="AUTEUR" EntitySet="AUTEUR" />
+      <End Role="LIVRE" EntitySet="LIVRE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COURANT_GENRE" Association="Self.FK_COURANT_GENRE">
+      <End Role="GENRE" EntitySet="GENRE" />
+      <End Role="COURANT" EntitySet="COURANT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LIVRE_EDITEUR" Association="Self.FK_LIVRE_EDITEUR">
+      <End Role="EDITEUR" EntitySet="EDITEUR" />
+      <End Role="LIVRE" EntitySet="LIVRE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LIVRE_GENRE" Association="Self.FK_LIVRE_GENRE">
+      <End Role="GENRE" EntitySet="GENRE" />
+      <End Role="LIVRE" EntitySet="LIVRE" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
